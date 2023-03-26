@@ -25,9 +25,10 @@ const lettersBecomeDots = function(word){
     let dotsBecomingLetters = arrOfPushedDots.join("");
 }
 
-const clickGuessBtn = guessButton.addEventListener("click", fuction(e){
+const clickGuessBtn = guessButton.addEventListener("click", (e) => {
     e.preventDefault();
-    let valueOfInput = e.target.value
+    let valueOfInput = letterGuess.value.toUpperCase();
+    console.log(valueOfInput);
 
 
 });
