@@ -12,8 +12,15 @@ const guessesRemain = document.querySelector(".remaining");
 const guessesRemainSpan = document.querySelector("span");
 //grabs hidden play again hidden button
 const hiddenbtn = document.querySelector(".play-again");
-
+//magnolia is the starting word to test game unitl we fetch words from a hosted file
 const word ="magnolia";
+
+
+//this function takes word converts it to an arrary. changes each letter to an "●".
+//it takes the word veriable.
+// "●" stays on screen untill correct letter is guessed
+
+
 
 const lettersBecomeDots = function(word){
     //  convert string to an array
@@ -22,13 +29,16 @@ const lettersBecomeDots = function(word){
     wordToArr.forEach(character => {
         arrOfPushedDots.push("●");
     });
+
+    // converts back to a string
     let dotsBecomingLetters = arrOfPushedDots.join("");
 }
 
-const clickGuessBtn = guessButton.addEventListener("click", (e) => {
+ guessButton.addEventListener("click", (e) => {
     e.preventDefault();
     let valueOfInput = letterGuess.value.toUpperCase();
     console.log(valueOfInput);
+    valueOfInput = "";
 
 
 });
