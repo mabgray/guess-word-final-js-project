@@ -12,8 +12,12 @@ const guessesRemain = document.querySelector(".remaining");
 const guessesRemainSpan = document.querySelector("span");
 //grabs hidden play again hidden button
 const hiddenbtn = document.querySelector(".play-again");
+//this is where messages to user displays
+const message = document.querySelector(".message");
 //magnolia is the starting word to test game unitl we fetch words from a hosted file
 const word ="magnolia";
+//this array holds all the user's guesses 
+const guessedLetters= [];
 
 
 //this function takes word converts it to an arrary. changes each letter to an "●".
@@ -38,11 +42,47 @@ const lettersBecomeDots = function(word){
     e.preventDefault();
     let valueOfInput = letterGuess.value.toUpperCase();
     console.log(valueOfInput);
+   
+   let checktest = checkUserInput(valueOfInput);
+   console.log(checktest);
     valueOfInput = "";
 
 
 });
 
+
+//makes sure user input is a leter and returns user letter if entered correctly
+const checkUserInput = function(input){
+    const acceptedLetter = /[a-zA-Z]/;
+    //checking for empty input
+     if(input.length === 0){
+        message.innerHTML = "You must enter a letter to play."
+//is input more than one letter
+     } else if(input.length > 1){
+        message.innerHTML = "Enter only one letter please."
+     } else if(!input.match(acceptedLetter)) {
+        message.innerHTML = "No numbers or special characters. Thank you"
+     } else {
+        return input;
+     }
+
+
+}
+
+//this fuction captures and holds user input
+
+const makeGuess = function(letterGuess){
+    letterGuess.toUpperCase();
+    if(guessedLetters.includes(letterGuess)){
+        message,innerHTML = 'you have already guessed ${LetterGuess}'
+    } else {
+        guessedLetters.push(letterGuess);
+        console.log(guessedLetters);
+    }
+
+
+
+}
 
 
 
