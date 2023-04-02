@@ -18,6 +18,7 @@ const message = document.querySelector(".message");
 const word ="mag";
 //this array holds all the user's guesses 
 const guessedLetters= [];
+let remainingGuesses = 8;
 
 
 //this function takes word converts it to an arrary. changes each letter to an "●".
