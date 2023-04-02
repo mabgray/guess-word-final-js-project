@@ -15,7 +15,7 @@ const hiddenbtn = document.querySelector(".play-again");
 //this is where messages to user displays
 const message = document.querySelector(".message");
 //magnolia is the starting word to test game unitl we fetch words from a hosted file
-const word ="magnolia";
+const word ="mag";
 //this array holds all the user's guesses 
 const guessedLetters= [];
 
@@ -120,11 +120,21 @@ const updateWordInProgress = function(guessedLetter){
     }
     dots = dotsArray.join("");
     wordInProgress.innerHTML = dots;
+    didUserWin();
 
 }
 
 
 
+
+const didUserWin = function (){
+    if(word.toUpperCase() === wordInProgress.innerText){
+        message.classList.add("win");
+        message.innerHTML = `<p class="highlight">You guessed correct the word! Congrats!</p>.`
+
+    }
+}
+   
 
 
 
