@@ -5,7 +5,7 @@ const guessButton = document.querySelector(".guess");
 //to grab user input letter
 const letterGuess = document.querySelector(".letter");
 //to grab empty <p> were word in progress is
-const wordInProgress = document.querySelector(".word-in-progress");
+const wordInProgress = document.querySelector(".word-in-progress"); 
 //to grab the  <p> where guesses left show
 const guessesRemain = document.querySelector(".remaining");
 //to grab the <span> area where guesses where remaining guesses appear
@@ -36,8 +36,10 @@ const lettersBecomeDots = function(word){
 
     // converts back to a string
     let dotsBecomingLetters = arrOfPushedDots.join("");
+    
+    wordInProgress.innerHTML = dotsBecomingLetters;
 }
-
+lettersBecomeDots(word);
  guessButton.addEventListener("click", (e) => {
     e.preventDefault();
     let valueOfInput = letterGuess.value.toUpperCase();
@@ -45,7 +47,11 @@ const lettersBecomeDots = function(word){
    
    let checktest = checkUserInput(valueOfInput);
    console.log(checktest);
-    valueOfInput = "";
+    if(checktest){
+        makeGuess(checktest);
+
+    }
+    letterGuess.value = "";
 
 
 });
@@ -72,15 +78,48 @@ const checkUserInput = function(input){
 //this fuction captures and holds user input
 
 const makeGuess = function(letterGuess){
-    letterGuess.toUpperCase();
+   letterGuess = letterGuess.toUpperCase();
     if(guessedLetters.includes(letterGuess)){
-        message,innerHTML = 'you have already guessed ${LetterGuess}'
+        message.innerHTML = `you have already guessed ${letterGuess}`;
     } else {
         guessedLetters.push(letterGuess);
         console.log(guessedLetters);
+        updatePageWithLetters();
+        updateWordInProgress(letterGuess);
     }
 
 
+}
+//this shows the users guessed letters
+const updatePageWithLetters = function(){
+    userGuessedLetters.innerHTML = "";
+    for(let char of guessedLetters){
+        let li = document.createElement("li");
+        li.innerText = char;
+        userGuessedLetters.append(li);
+    }
+
+}
+
+//function to update word in progres
+//it relaces circles with letters
+const updateWordInProgress = function(guessedLetter){
+    let wordUpper = word.toUpperCase();
+    let wordArray= wordUpper.split("");
+    //this is taking the word in progress
+    let dots = wordInProgress.innerHTML;
+    //converting to an arr
+    let dotsArray = dots.split("");
+
+    for(let i = 0; i < wordArray.length; i++){
+        if(wordArray[i] === guessedLetter){
+            //this replaces the dot with a letter;
+            dotsArray[i] = guessedLetter;
+
+        }
+    }
+    dots = dotsArray.join("");
+    wordInProgress.innerHTML = dots;
 
 }
 
