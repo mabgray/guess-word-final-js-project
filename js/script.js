@@ -15,10 +15,23 @@ const hiddenbtn = document.querySelector(".play-again");
 //this is where messages to user displays
 const message = document.querySelector(".message");
 //magnolia is the starting word to test game unitl we fetch words from a hosted file
-const word ="mag";
+let word ="mag";
 //this array holds all the user's guesses 
 const guessedLetters= [];
 let remainingGuesses = 8;
+
+const getWord = async function(){
+    const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.tx");
+    const arrayOfWords = await response.text();
+    const randomIndex = Math.floor(Math.random() * arrayOfWords.length);
+    word = arrayOfWords[randomIndex].trim();
+    lettersBecomeDots(word);
+    
+
+
+
+}
+getWord(word);
 
 
 //this function takes word converts it to an arrary. changes each letter to an "●".
@@ -40,7 +53,7 @@ const lettersBecomeDots = function(word){
     
     wordInProgress.innerHTML = dotsBecomingLetters;
 }
-lettersBecomeDots(word);
+//lettersBecomeDots(word);
  guessButton.addEventListener("click", (e) => {
     e.preventDefault();
     let valueOfInput = letterGuess.value.toUpperCase();
@@ -134,7 +147,7 @@ const gameWord = word.toUpperCase();
 
     if(!gameWord.includes(guess)){
         message.innerText = `Nope. ${guess} doesn't work.`
-        remainingGuesses -= 7;
+        remainingGuesses -= 1;
     } else {
      message.innerText = `Yes ma'am. There is a(n) ${guess}. `
     }
