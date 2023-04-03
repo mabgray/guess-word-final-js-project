@@ -86,6 +86,7 @@ const makeGuess = function(letterGuess){
         guessedLetters.push(letterGuess);
         console.log(guessedLetters);
         updatePageWithLetters();
+        amountOfGueses(letterGuess);
         updateWordInProgress(letterGuess);
     }
 
@@ -127,6 +128,28 @@ const updateWordInProgress = function(guessedLetter){
 
 
 
+
+const amountOfGueses = function(guess){
+const gameWord = word.toUpperCase();
+
+    if(!gameWord.includes(guess)){
+        message.innerText = `Nope. ${guess} doesn't work.`
+        remainingGuesses -= 7;
+    } else {
+     message.innerText = `Yes ma'am. There is a(n) ${guess}. `
+    }
+
+    if(remainingGuesses === 0){
+        message.innerText = `You lost. You have ${remainingGuesses} tries left. The correct word was <span class="hightlight"> ${word} </span> .`
+    } else if(remainingGuesses === 1) {
+        guessesRemainSpan.innerText = `${remainingGuesses} guess`
+    } else {
+        guessesRemainSpan.innerText = `${remainingGuesses} guesses`
+
+    }
+
+
+}
 
 const didUserWin = function (){
     if(word.toUpperCase() === wordInProgress.innerText){
