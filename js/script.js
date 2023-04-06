@@ -11,7 +11,7 @@ const guessesRemain = document.querySelector(".remaining");
 //to grab the <span> area where guesses where remaining guesses appear
 const guessesRemainSpan = document.querySelector("span");
 //grabs hidden play again hidden button
-const hiddenbtn = document.querySelector(".play-again");
+const playAgainButton = document.querySelector(".play-again");
 //this is where messages to user displays
 const message = document.querySelector(".message");
 //magnolia is the starting word to test game unitl we fetch words from a hosted file
@@ -20,18 +20,24 @@ let word ="mag";
 const guessedLetters= [];
 let remainingGuesses = 8;
 
+
 const getWord = async function(){
-    const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.tx");
-    const arrayOfWords = await response.text();
+    const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+    console.log(response);
+    const words = await response.text();
+    //converts to an array
+    const arrayOfWords = words.split("\n");
+    console.log(arrayOfWords);
+    console.log(typeof arrayOfWords);
     const randomIndex = Math.floor(Math.random() * arrayOfWords.length);
     word = arrayOfWords[randomIndex].trim();
     lettersBecomeDots(word);
-    
+    console.log(word);
 
 
 
 }
-getWord(word);
+getWord();
 
 
 //this function takes word converts it to an arrary. changes each letter to an "●".
@@ -153,7 +159,7 @@ const gameWord = word.toUpperCase();
     }
 
     if(remainingGuesses === 0){
-        message.innerText = `You lost. You have ${remainingGuesses} tries left. The correct word was <span class="highlight"> ${word} </span> .`;
+        message.innerHTML = `You lost. You have ${remainingGuesses} tries left. The correct word was <span class="highlight"> ${word} </span> .`;
         startOver();
     } else if(remainingGuesses === 1) {
         guessesRemainSpan.innerText = `${remainingGuesses} guess`
@@ -179,7 +185,7 @@ const startOver = function(){
     guessButton.classList.add("hide");
     guessesRemain.classList.add("hide");
     userGuessedLetters.classList.add("hide");
-    hiddenbtn.classList.remove("hide");
+    playAgainButton.classList.remove("hide");
 
 }
 
